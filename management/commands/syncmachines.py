@@ -31,9 +31,6 @@ class Command(BaseCommand):
 			fact_name = 'macaddress_en0'
 			raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
 			whd_machine.mac_address_en0 = raw_fact.fact_data
-			fact_name = 'productname'
-			raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
-			whd_machine.productname = raw_fact.fact_data
 			fact_name = 'memorytotal'
 			raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
 			whd_machine.memorytotal = raw_fact.fact_data
@@ -46,9 +43,9 @@ class Command(BaseCommand):
 			if mms_available:
 				whd_machine.productname = macmodelshelf.model(macmodelshelf.model_code(whd_machine.serial).encode()).encode()
 			else:
-				fact_name = 'machine_model'
+				fact_name = 'productname'
 				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
-				whd_machine.machine_model = raw_fact.fact_data
+				whd_machine.productname = raw_fact.fact_data
 
 			whd_machine.save()
 			machine_count += 1
