@@ -6,6 +6,15 @@ class Whdmachine(models.Model):
     serial = models.TextField()
     hostname = models.TextField()
     mac_address_en0 = models.TextField()
+    productname = models.TextField()
+    memory_total = models.TextField()
+    cpu = models.TextField()
+    macosx_productversion = models.TextField()
+    ipaddress = models.TextField()
+    sp_local_host_name = models.TextField()
+    macaddress_wifi = models.TextField()
+    macaddress_eth = models.TextField()
+    
     def __unicode__(self):
         return self.hostname
     class Meta:
