@@ -60,11 +60,11 @@ class Command(BaseCommand):
 				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
 				whd_machine.macaddress_wifi = raw_fact.fact_data
 				whd_machine.macaddress_eth = ""
-			else if "Retina" in productname:
+			elif "Retina" in productname:
 				fact_name = 'macaddress_en0'
 				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
 				whd_machine.macaddress_wifi = raw_fact.fact_data
-			else if "MacPro" in productname:
+			elif "MacPro" in productname:
 				fact_name = 'macaddress_en0'
 				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
 				fact_name = 'macaddress_en1'
