@@ -79,7 +79,7 @@ class Command(BaseCommand):
 				whd_machine.macaddress_eth = raw_fact.fact_data
 				fact_name = 'macaddress_en1'
 				raw_fact2 = Fact.objects.get(machine=machine,fact_name=fact_name)
-				whd_machine.macaddress_wifi = raw_fact.fact_data
+				whd_machine.macaddress_wifi = raw_fact2.fact_data
 				
 				
 			whd_machine.save()
