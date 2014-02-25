@@ -34,6 +34,8 @@ class Command(BaseCommand):
 
 			# Update the rest of the details
 			whd_machine.serial = machine.serial
+			print machine.hd_total
+			print int(machine.hd_total)		
 			whd_machine.hd_total = self.GetHumanReadable(int(machine.hd_total))
 
 			# Get the desired facts
