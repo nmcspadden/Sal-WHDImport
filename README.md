@@ -70,7 +70,7 @@ _Note: The JDBC connector does not come bundled with WebHelpDesk by default due 
 
 Configure a new Discovery Connection in Setup - Assets - Discovery Connections.  Choose "MySQL" as the Database Type, and enter in appropriate credentials.  For "Table or View", choose "whdimport_whdmachine", as that's the table we created with whdimport that we'll be pulling data from.  Choose the "Sync Column" of your choice - I recommend using "serial", as that will try to match serial numbers from Sal into existing assets in Web Help Desk.
 
-The Attribute Mapping is the real magic - you can assign fields you created in the whdimport models.py to fields in Web Help Desk.  You can add any number of custom fields to your assets, so this is a good way to collect any data that you're interested in harvesting.  My own example includes the Ethernet MAC address (if present), hard drive capacity, total RMA, and CPU speed and type.
+The Attribute Mapping is the real magic - you can assign fields you created in the whdimport models.py to fields in Web Help Desk.  You can add any number of custom fields to your assets, so this is a good way to collect any data that you're interested in harvesting.  My own example includes the Ethernet MAC address (if present), hard drive capacity, total RAM, and CPU speed and type.
 
 Once you've got the fields mapped to your satisfaction, you can initiate a Sync and see the results in the Assets section.  Do any fine-tuning as necessary on your field mapping.  Remember that if you make any changes to the models, you'll need to adjust the syncmachines.py to properly populate it, and then migrate the schema as well.
 
