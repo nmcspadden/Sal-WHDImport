@@ -13,7 +13,7 @@ class Command(BaseCommand):
 	
 	def GetHumanReadable(self, size, precision=2):
 		# Credit goes to http://code.activatestate.com/recipes/577081-humanized-representation-of-a-number-of-bytes/
-		suffixes=['B','KB','MB','GB','TB']
+		suffixes=['KB','MB','GB','TB']
 		suffixIndex = 0
 		while size > 1024:
 			suffixIndex += 1 #increment the index of the suffix
