@@ -28,18 +28,9 @@ Installing whdimport
 0. Activate the virtual env as saluser.
 1. Download the repo into a "whdimport" folder in the root of sal- the end result should be /usr/local/sal_env/sal/whdimport/ which contains all of the files in this repo.
 2. Add "whdimport" to the INSTALLED_APPS section of settings.py (/usr/local/sal_env/sal/sal/settings.py).
-3. If you make any changes to the models (fields), you'll need to run:
-```
-python manage.py schemamigration whdimport --auto
-```
-4. Migrate the databases:
-```
-python manage.py migrate whdimport
-```
-5. Now sync the data into the new table:
-```
-python manage.py syncmachines
-```
+3. If you make any changes to the models (fields), you'll need to run: ```python manage.py schemamigration whdimport --auto```
+4. Migrate the databases: ```python manage.py migrate whdimport```
+5. Now sync the data into the new table: ```python manage.py syncmachines```
 
 If you check MySQL, you'll see a new table called "whdimport_whdmachine".  This now contains the fields that are specified in whdimport/models.py.  The data is populated when you run syncmachines as in step 5 above.
 
