@@ -2,13 +2,12 @@ from django.db import models
 from server.models import Machine
 
 class Whdmachine(models.Model):
-<<<<<<< HEAD
 	machine = models.ForeignKey(Machine)
 	serial = models.TextField()
 	hostname = models.TextField()
 	mac_address_en0 = models.TextField()
 	productname = models.TextField()
-	memory_total = models.TextField()
+	memorytotal = models.TextField()
 	cpu = models.TextField()
 	macosx_productversion = models.TextField()
 	ipaddress = models.TextField()
