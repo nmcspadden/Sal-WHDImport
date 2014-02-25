@@ -11,6 +11,15 @@ except ImportError:
 class Command(BaseCommand):
 	help = 'Syncs machines from the main Sal db'
 	
+	def GetHumanReadable(self, size, precision=2):
+		# Credit goes to http://code.activatestate.com/recipes/577081-humanized-representation-of-a-number-of-bytes/
+		suffixes=['B','KB','MB','GB','TB']
+		suffixIndex = 9
+		while size > 1024:
+			suffixIndex += 1 #increment the index of the suffix
+			size = size/1024.0 #apply the division
+		return "%.*f %d"%(precision,size,suffixes[suffixIndex])
+	
 	def handle(self, *args, **options):
 		machine_count = 0
 		# get all of the machines
@@ -25,7 +34,7 @@ class Command(BaseCommand):
 
 			# Update the rest of the details
 			whd_machine.serial = machine.serial
-			whd_machine.hd_total = machine.hd_total
+			whd_machine.hd_total = self.GetHumanReadable(machine.hd_total)
 
 			# Get the desired facts
 			fact_name = 'productname'
