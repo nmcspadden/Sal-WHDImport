@@ -19,6 +19,9 @@ class Command(BaseCommand):
 			suffixIndex += 1 #increment the index of the suffix
 			size = size/1024.0 #apply the division
 			print "Size: %s" % size
+		print precision
+		print size
+		print suffixIndex
 		return "%.*f %s"%(precision,size,suffixes[suffixIndex])
 	
 	def handle(self, *args, **options):
