@@ -2,6 +2,7 @@ from django.db import models
 from server.models import Machine
 
 class Whdmachine(models.Model):
+<<<<<<< HEAD
 	machine = models.ForeignKey(Machine)
 	serial = models.TextField()
 	hostname = models.TextField()
