@@ -18,7 +18,7 @@ class Command(BaseCommand):
 		while size > 1024:
 			suffixIndex += 1 #increment the index of the suffix
 			size = size/1024.0 #apply the division
-		return "%.*f %d"%(precision,size,suffixes[suffixIndex])
+		return "%.*f %s"%(precision,size,suffixes[suffixIndex])
 	
 	def handle(self, *args, **options):
 		machine_count = 0
@@ -34,7 +34,7 @@ class Command(BaseCommand):
 
 			# Update the rest of the details
 			whd_machine.serial = machine.serial
-			whd_machine.hd_total = self.GetHumanReadable(machine.hd_total)
+			whd_machine.hd_total = self.GetHumanReadable(int(machine.hd_total))
 
 			# Get the desired facts
 			fact_name = 'productname'
