@@ -14,14 +14,10 @@ class Command(BaseCommand):
 	def GetHumanReadable(self, size, precision=2):
 		# Credit goes to http://code.activatestate.com/recipes/577081-humanized-representation-of-a-number-of-bytes/
 		suffixes=['B','KB','MB','GB','TB']
-		suffixIndex = 9
+		suffixIndex = 0
 		while size > 1024:
 			suffixIndex += 1 #increment the index of the suffix
 			size = size/1024.0 #apply the division
-			print "Size: %s" % size
-		print precision
-		print size
-		print suffixIndex
 		return "%.*f %s"%(precision,size,suffixes[suffixIndex])
 	
 	def handle(self, *args, **options):
