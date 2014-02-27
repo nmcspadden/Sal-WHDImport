@@ -1,11 +1,11 @@
 WHD Bridge
 ==========
 
-Massive thanks go to Graham Gilbert (https://github.com/grahamgilbert/) for developing Sal (https://github.com/grahamgilbert/sal).  It's a straightforward reporting tool to get information from the results of Munki (https://code.google.com/p/munki/) and optionally Facter (http://puppetlabs.com/facter) into a visual dashboard.
+Massive thanks go to [Graham Gilbert](https://github.com/grahamgilbert/) for developing [Sal](https://github.com/grahamgilbert/sal).  It's a straightforward reporting tool to get information from the results of [Munki](https://code.google.com/p/munki/) and optionally [Facter](http://puppetlabs.com/facter) into a visual dashboard.
 
 It also has a nice plugin architecture that allows for applications to use the data collected from Sal and Facter.  If you're using a MySQL database backend for Sal, you can also let other external sources access that data.
 
-You can turn Sal into an automated asset tracking system by using Web Help Desk (http://www.webhelpdesk.com).  WHD has a free license that allows unlimited use by a single account, and can be hosted on multiple platforms.  If you've already got Sal installed on a Linux server (it provides instructions for Ubuntu and CentOS), you can easily add WHD to that platform.  
+You can turn Sal into an automated asset tracking system by using [Web Help Desk](http://www.webhelpdesk.com).  WHD has a free license that allows unlimited use by a single account, and can be hosted on multiple platforms.  If you've already got Sal installed on a Linux server (it provides instructions for Ubuntu and CentOS), you can easily add WHD to that platform.  
 
 The reason to use WHD is that it supports automated discovery through a number of channels - including using the JDBC to access a MySQL database.  If you configure Sal to use a MySQL backend (anything that isn't Sqlite, really), you can automatically sync data to WHD through this discovery connection.
 
