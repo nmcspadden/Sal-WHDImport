@@ -99,7 +99,7 @@ class Command(BaseCommand):
 				whd_machine.productname = productname
 
 			# "MAC address" should always correspond to wifi in WHD, so here are the special cases
-			if "Air" in productname:
+			if "Air" in whd_machine.productname:
 				fact_name = 'macaddress_en0'
 				try:
 					raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
@@ -107,7 +107,7 @@ class Command(BaseCommand):
 					whd_machine.macaddress_eth = ""
 				except Fact.DoesNotExist:
 					print whd_machine.serial + " " + fact_name + " doesn't exist."
-			elif "Retina" in productname:
+			elif "Retina" in whd_machine.productname:
 				fact_name = 'macaddress_en0'
 				try:
 					raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
@@ -115,7 +115,7 @@ class Command(BaseCommand):
 					whd_machine.macaddress_eth = ""
 				except Fact.DoesNotExist:
 					print whd_machine.serial + " " + fact_name + " doesn't exist."
-			elif "MacPro" in productname:
+			elif "Mac Pro" in whd_machine.productname:
 				fact_name = 'macaddress_en0'
 				try:
 					raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
