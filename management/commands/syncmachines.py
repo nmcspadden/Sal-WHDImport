@@ -37,59 +37,115 @@ class Command(BaseCommand):
 			whd_machine.hd_total = self.GetHumanReadable(int(machine.hd_total))
 
 			# Get the desired facts
-			fact_name = 'productname'
-			raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
-			productname = raw_fact.fact_data #not committing to whd_machine yet
+			
+			# Get the total amount of RAM ("x.xx in GB")
 			fact_name = 'memorytotal'
-			raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
-			whd_machine.memorytotal = raw_fact.fact_data
+			try:
+				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+				whd_machine.memorytotal = raw_fact.fact_data
+			except Fact.DoesNotExist:
+				print whd_machine.serial + " " + fact_name + " doesn't exist."
+			
+			# Get the CPU type & clock speed
 			fact_name = 'sp_cpu_type'
-			raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+			try:
+				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+			except Fact.DoesNotExist:
+				print whd_machine.serial + " " + fact_name + " doesn't exist."
 			fact_name = 'sp_current_processor_speed'
-			raw_fact2 = Fact.objects.get(machine=machine,fact_name=fact_name)
-			whd_machine.cpu = raw_fact.fact_data + " " + raw_fact2.fact_data
-			fact_name = 'macosx_productversion'
-			raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
-			whd_machine.macosx_productversion = raw_fact.fact_data
-			fact_name = 'ipaddress'
-			raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
-			whd_machine.ipaddress = raw_fact.fact_data
-			fact_name = 'sp_local_host_name'
-			raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
-			whd_machine.sp_local_host_name = raw_fact.fact_data
+			try:
+				raw_fact2 = Fact.objects.get(machine=machine,fact_name=fact_name)
+				whd_machine.cpu = raw_fact.fact_data + " " + raw_fact2.fact_data
+			except Fact.DoesNotExist:
+				print whd_machine.serial + " " + fact_name + " doesn't exist."
 
+			# Get the installed version of OS X
+			fact_name = 'macosx_productversion'
+			try:
+				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+				whd_machine.macosx_productversion = raw_fact.fact_data
+			except Fact.DoesNotExist:
+				print whd_machine.serial + " " + fact_name + " doesn't exist."
+
+			# Get the IP address of the primary interface 
+			# If both ethernet and wifi are connected, it will pick first in the service order
+			fact_name = 'ipaddress'
+			try:
+				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+				whd_machine.ipaddress = raw_fact.fact_data
+			except Fact.DoesNotExist:
+				print whd_machine.serial + " " + fact_name + " doesn't exist."
+
+			# Get the Sharing computer name.
+			fact_name = 'sp_local_host_name'
+			try:
+				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+				whd_machine.sp_local_host_name = raw_fact.fact_data
+			except Fact.DoesNotExist:
+				print whd_machine.serial + " " + fact_name + " doesn't exist."
+
+			# Model of the device
+			fact_name = 'productname'
+			try:
+				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+				productname = raw_fact.fact_data #not committing to whd_machine yet
+			except Fact.DoesNotExist:
+				print whd_machine.serial + " " + fact_name + " doesn't exist."
 			if mms_available:
+				# If we have MacModelShelf, then we can pull it based on the serial number.
 				whd_machine.productname = macmodelshelf.model(macmodelshelf.model_code(whd_machine.serial).encode()).encode()
 			else:
+				# Otherwise, just use the productname pulled from the fact.
 				whd_machine.productname = productname
 
-			# "MAC address" should always correspond to wifi, so here are the special cases
+			# "MAC address" should always correspond to wifi in WHD, so here are the special cases
 			if "Air" in productname:
 				fact_name = 'macaddress_en0'
-				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
-				whd_machine.macaddress_wifi = raw_fact.fact_data
-				whd_machine.macaddress_eth = ""
+				try:
+					raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+					whd_machine.macaddress_wifi = raw_fact.fact_data
+					whd_machine.macaddress_eth = ""
+				except Fact.DoesNotExist:
+					print whd_machine.serial + " " + fact_name + " doesn't exist."
 			elif "Retina" in productname:
 				fact_name = 'macaddress_en0'
-				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
-				whd_machine.macaddress_wifi = raw_fact.fact_data
+				try:
+					raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+					whd_machine.macaddress_wifi = raw_fact.fact_data
+					whd_machine.macaddress_eth = ""
+				except Fact.DoesNotExist:
+					print whd_machine.serial + " " + fact_name + " doesn't exist."
 			elif "MacPro" in productname:
 				fact_name = 'macaddress_en0'
-				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+				try:
+					raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+				except Fact.DoesNotExist:
+					print whd_machine.serial + " " + fact_name + " doesn't exist."
 				fact_name = 'macaddress_en1'
-				raw_fact2 = Fact.objects.get(machine=machine,fact_name=fact_name)
+				try:
+					raw_fact2 = Fact.objects.get(machine=machine,fact_name=fact_name)
+				except Fact.DoesNotExist:
+					print whd_machine.serial + " " + fact_name + " doesn't exist."
 				whd_machine.macaddress_eth = raw_fact.fact_data + ", " + raw_fact2.fact_data
 				fact_name = 'macaddress_en2'
-				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+				try:
+					raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+				except Fact.DoesNotExist:
+					print whd_machine.serial + " " + fact_name + " doesn't exist."
 				whd_machine.macaddress_wifi = raw_fact.fact_data
 			else:
 				fact_name = 'macaddress_en0'
-				raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
-				whd_machine.macaddress_eth = raw_fact.fact_data
+				try:
+					raw_fact = Fact.objects.get(machine=machine,fact_name=fact_name)
+					whd_machine.macaddress_eth = raw_fact.fact_data
+				except Fact.DoesNotExist:
+					print whd_machine.serial + " " + fact_name + " doesn't exist."
 				fact_name = 'macaddress_en1'
-				raw_fact2 = Fact.objects.get(machine=machine,fact_name=fact_name)
-				whd_machine.macaddress_wifi = raw_fact2.fact_data
-				
+				try:
+					raw_fact2 = Fact.objects.get(machine=machine,fact_name=fact_name)
+					whd_machine.macaddress_wifi = raw_fact2.fact_data
+				except Fact.DoesNotExist:
+					print whd_machine.serial + " " + fact_name + " doesn't exist."				
 				
 			whd_machine.save()
 			machine_count += 1
