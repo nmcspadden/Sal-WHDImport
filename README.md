@@ -23,7 +23,7 @@ So we need a flat table to work with in order to let WHD work with the data.  Th
 Graham Gilbert wrote the "whdimport" module and deserves full credit for it.  I simply added the pieces on that I wanted to be recorded in WHD.  You can add any custom fields you want into WHD, and you can map these attributes by modifying the "whdimport" app.
 
 Installing whdimport
----------------
+--------------------
 
 0. Activate the virtual env as saluser.
 1. Download the repo into a "whdimport" folder in the root of sal- the end result should be /usr/local/sal_env/sal/whdimport/ which contains all of the files in this repo.
@@ -33,6 +33,14 @@ Installing whdimport
 5. Now sync the data into the new table: ```python manage.py syncmachines```
 
 If you check MySQL, you'll see a new table called "whdimport_whdmachine".  This now contains the fields that are specified in whdimport/models.py.  The data is populated when you run syncmachines as in step 5 above.
+
+Adding MacModelShelf
+--------------------
+
+To add some additional capability, you can incorporate [MacModelShelf](https://github.com/MagerValp/MacModelShelf).  This provides the ability to convert a serial number into Apple's official designated model name (which looks much nicer and is more informative than MacBookPro8,2).
+
+Simply download MacModelShelf.py and MacModelShelf.db and place them into /usr/local/sal_env/sal, so that when you run ```python manage.py syncmachines```, whdimport will be able to use it and give you some nicer names.
+
 
 Modifying The Models
 --------------------
