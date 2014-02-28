@@ -141,7 +141,13 @@ class Command(BaseCommand):
 					whd_machine.macaddress_wifi = raw_fact2.fact_data
 				except Fact.DoesNotExist:
 					print whd_machine.serial + " " + fact_name + " doesn't exist."				
-				
+			
+			# Set the Asset Type to "Laptop" or "Desktop" depending
+			if "Book" in whd_machine.productname:
+				whd_machine.type = "Laptop"
+			else:
+				whd_machine.type = "Desktop"
+			
 			whd_machine.save()
 			machine_count += 1
 
