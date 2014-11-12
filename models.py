@@ -15,6 +15,7 @@ class Whdmachine(models.Model):
 	macaddress_wifi = models.TextField(blank=True, null=True)
 	macaddress_eth = models.TextField(blank=True, null=True)
 	hd_total = models.TextField()
+	type = models.TextField()
 	
 	def __unicode__(self):
 		return self.hostname
