@@ -16,6 +16,7 @@ class Whdmachine(models.Model):
 	macaddress_eth = models.TextField(blank=True, default="")
 	hd_total = models.TextField(blank=True, default="")
 	type = models.TextField(blank=True, default="")
+	memorysize = models.TextField(blank=True, default="")
 	
 	def __unicode__(self):
 		return self.hostname
