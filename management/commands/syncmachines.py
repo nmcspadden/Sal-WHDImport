@@ -94,7 +94,6 @@ class Command(BaseCommand):
 			if mms_available:
 				# If we have MacModelShelf, then we can pull it based on the serial number.
 				local_model = macmodelshelf.model(macmodelshelf.model_code(whd_machine.serial).encode())
-				print local_model
 				if local_model is None:
 					whd_machine.productname = ""
 				else:
@@ -153,6 +152,7 @@ class Command(BaseCommand):
 			else:
 				whd_machine.type = "Desktop"
 			
+			print "About to save..."
 			whd_machine.save()
 			machine_count += 1
 
