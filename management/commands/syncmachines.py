@@ -93,8 +93,12 @@ class Command(BaseCommand):
 				print whd_machine.serial + " " + fact_name + " doesn't exist."
 			if mms_available:
 				# If we have MacModelShelf, then we can pull it based on the serial number.
-				print "Model " + macmodelshelf.model(macmodelshelf.model_code(whd_machine.serial).encode())
-				whd_machine.productname = macmodelshelf.model(macmodelshelf.model_code(whd_machine.serial).encode()).encode()
+				local_model = macmodelshelf.model(macmodelshelf.model_code(whd_machine.serial).encode())
+				print local_model
+				if local_model is None:
+					whd_machine.productname = ""
+				else:
+					whd_machine.productname = macmodelshelf.model(macmodelshelf.model_code(whd_machine.serial).encode()).encode()
 			else:
 				# Otherwise, just use the productname pulled from the fact.
 				whd_machine.productname = productname
