@@ -152,8 +152,8 @@ class Command(BaseCommand):
 			else:
 				whd_machine.type = "Desktop"
 			
-			print "About to save..."
 			whd_machine.save()
 			machine_count += 1
 
+		print "About to save..."
 		self.stdout.write('Successfully synced "%s" machines' % machine_count)
