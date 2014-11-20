@@ -154,7 +154,5 @@ class Command(BaseCommand):
 			
 			whd_machine.save()
 			machine_count += 1
-			self.stdout.write('Machine count: %s' % machine_count)
 
-		print "About to save..."
 		self.stdout.write('Successfully synced "%s" machines' % machine_count)
